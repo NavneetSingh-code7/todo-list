@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function createTodoElement(text, completed, id) {
         const li = document.createElement('li');
         li.setAttribute('data-id', id);
+        li.classList.add('bounceIn');
         if (completed) {
             li.classList.add('completed');
         }
@@ -55,8 +56,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Delete todo when delete button is clicked
         li.querySelector('.delete-btn').addEventListener('click', function(e) {
             e.stopPropagation(); // Prevent triggering the li click event
-            todoList.removeChild(li);
-            saveTodos(); // Save after deleting
+            li.classList.add('fade-out');
+            setTimeout(() => {
+                todoList.removeChild(li);
+                saveTodos(); // Save after deleting
+            }, 300); // Wait for animation to complete
         });
 
         todoList.appendChild(li);
@@ -64,8 +68,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function deleteAllTodos() {
         if (confirm('Are you sure you want to delete all todos?')) {
-            todoList.innerHTML = '';
-            saveTodos(); // Save empty list
+            const todoItems = todoList.querySelectorAll('li');
+            todoItems.forEach(item => {
+                item.classList.add('fade-out');
+            });
+            setTimeout(() => {
+                todoList.innerHTML = '';
+                saveTodos(); // Save empty list
+            }, 300); // Wait for animation to complete
         }
     }
 
