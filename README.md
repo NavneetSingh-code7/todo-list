@@ -1,4 +1,4 @@
-# Todo List Website
+# TodoList App
 
 A modern, feature-rich todo list website built with HTML, CSS, and JavaScript.
 
